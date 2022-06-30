@@ -25,7 +25,7 @@ public class EmployeeControllerTML {
     public ModelAndView listAllEmployees() {
         ModelAndView modelAndView = new ModelAndView("index");
         List<Employee> employeeList = employeeService.findAllEmployeesTML();
-        modelAndView.addObject("employees",employeeList);
+        modelAndView.addObject("employees", employeeList);
         return modelAndView;
     }
 
