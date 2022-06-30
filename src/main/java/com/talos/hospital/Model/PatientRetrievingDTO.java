@@ -19,7 +19,7 @@ public interface PatientRetrievingDTO {
 
     EmployeeRetrievingDTO getDoctor();
 
-    List<SupplyDTO> getListOfSupplies();
+    List<SupplyRetrievingDTO> getListOfSupplies();
 
 
 }

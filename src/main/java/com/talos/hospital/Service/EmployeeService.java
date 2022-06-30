@@ -1,9 +1,7 @@
 package com.talos.hospital.Service;
 
 import com.talos.hospital.CustomUtils.Exceptions.NoSuchIdFound;
-import com.talos.hospital.Model.Employee;
-import com.talos.hospital.Model.EmployeeCreationDTO;
-import com.talos.hospital.Model.EmployeeRetrievingDTO;
+import com.talos.hospital.Model.*;
 import com.talos.hospital.Repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +43,7 @@ public class EmployeeService {
     }
 
     public EmployeeRetrievingDTO getEmployeeById(UUID id) {
-        return employeeRepository.getEmployeeByEmployeeId(id).orElseThrow(() -> new NoSuchIdFound(Employee.class.getSimpleName(),id));
+        return employeeRepository.getEmployeeByEmployeeId(id).orElseThrow(() -> new NoSuchIdFound(Employee.class.getSimpleName(), id));
     }
 
     public EmployeeCreationDTO updateEmployee(EmployeeCreationDTO employee, UUID employeeUUID) throws NoSuchIdFound {
@@ -64,7 +62,8 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(UUID employeeUUID) {
-        employeeRepository.deleteById(employeeUUID);
+        Employee employee = employeeRepository.findById(employeeUUID).orElseThrow(() -> new NoSuchIdFound(Employee.class.getSimpleName(), employeeUUID));
+        employeeRepository.deleteById(employee.getEmployeeId());
     }
 
     public EmployeeCreationDTO convertEmployeeToCreationDTO(Employee employee) {
@@ -82,19 +81,30 @@ public class EmployeeService {
         return employeeCreationDTO;
     }
 
-    public Employee convertCreationDtoToEmployee(EmployeeCreationDTO employeeCreationDTO) {
-        Employee employee = new Employee();
-        employee.setEmployeeId(employeeCreationDTO.getEmployeeId());
-        employee.setFirstName(employeeCreationDTO.getFirstName());
-        employee.setLastName(employeeCreationDTO.getLastName());
-        employee.setBirthDate(employeeCreationDTO.getBirthDate());
-        employee.setGender(employeeCreationDTO.getGender());
-        employee.setPosition(employeeCreationDTO.getPosition());
-        employee.setAge(employeeCreationDTO.getAge());
-        employee.setAddress(employeeCreationDTO.getAddress());
-        employee.setPhoneNumber(employeeCreationDTO.getPhoneNumber());
-        employee.setStatus(employeeCreationDTO.getStatus());
-        return employee;
+
+    public EmployeeRetrievingDTO convertEmployeeToRetrievingDTO(Employee employee) {
+
+        return new EmployeeRetrievingDTO() {
+            @Override
+            public String getFirstName() {
+                return employee.getFirstName();
+            }
+
+            @Override
+            public String getLastName() {
+                return employee.getLastName();
+            }
+
+            @Override
+            public Gender getGender() {
+                return employee.getGender();
+            }
+
+            @Override
+            public Position getPosition() {
+                return employee.getPosition();
+            }
+        };
     }
 
     //TML SECTION

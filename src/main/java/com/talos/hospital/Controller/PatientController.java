@@ -1,14 +1,18 @@
 package com.talos.hospital.Controller;
 
 
-import com.talos.hospital.Model.Patient;
-import com.talos.hospital.Model.PatientCreatingDTO;
+import com.talos.hospital.Model.PatientCreationDTO;
 import com.talos.hospital.Model.PatientRetrievingDTO;
 import com.talos.hospital.Service.PatientService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -16,6 +20,8 @@ import java.util.UUID;
 public class PatientController {
 
     private final PatientService patientService;
+
+    Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
@@ -27,8 +33,13 @@ public class PatientController {
     }
 
     @PostMapping()
-    public PatientRetrievingDTO addPatient(@RequestBody PatientCreatingDTO patientCreatingDTO) {
-        return patientService.addPatient(patientCreatingDTO);
+    public ResponseEntity<PatientCreationDTO> addPatient(@Valid @RequestBody PatientCreationDTO patientCreationDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            logger.error("Invalid arguments for creating a new Employee.");
+            bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(patientService.addPatient(patientCreationDTO));
     }
 
 
@@ -38,8 +49,13 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public Optional<PatientRetrievingDTO> updatePatient(@RequestBody Patient patient, @PathVariable("id") UUID patientUUID) {
-        return patientService.updatePatient(patient,patientUUID);
+    public ResponseEntity<PatientCreationDTO> updatePatient(@Valid @RequestBody PatientCreationDTO patient, BindingResult bindingResult, @PathVariable("id") UUID patientUUID) {
+        if (bindingResult.hasErrors()) {
+            logger.error("Invalid arguments for editing current Employee.");
+            bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(patientService.updatePatient(patient, patientUUID));
     }
 
     @DeleteMapping("/{id}")
@@ -48,7 +64,7 @@ public class PatientController {
     }
 
     @PostMapping("/{id}/addSupplies/{supplyUUID}")
-    public void addSuppliesToPatient(@PathVariable("id") UUID patientUUID,@PathVariable("supplyUUID") UUID supplyUUID) {
-        patientService.addSuppliesToPatient(patientUUID,supplyUUID);
+    public void addSuppliesToPatient(@PathVariable("id") UUID patientUUID, @PathVariable("supplyUUID") UUID supplyUUID) {
+        patientService.addSuppliesToPatient(patientUUID, supplyUUID);
     }
 }

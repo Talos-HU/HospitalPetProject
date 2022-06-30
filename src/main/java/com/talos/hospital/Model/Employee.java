@@ -24,7 +24,7 @@ public class Employee {
 
     @Id
     @Column(name = "employee_id", updatable = false, nullable = false)
-    private UUID employeeId = UUID.randomUUID();
+    private UUID employeeId;
 
     @NotBlank(message = "An Employee must have a first name")
     @Column(name = "employee_first_name")
@@ -62,5 +62,10 @@ public class Employee {
 
     @Column(name = "employee_status")
     private Boolean status;
+
+    @PrePersist
+    public void autofill() {
+        this.setEmployeeId(UUID.randomUUID());
+    }
 
 }

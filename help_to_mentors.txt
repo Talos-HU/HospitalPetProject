@@ -1,0 +1,29 @@
+Post employee example 1:
+
+{
+  "firstName": "Albert",
+  "lastName": "Szent-Györgyi",
+  "birthDate": "1893-09-22",
+  "gender": "MALE",
+  "position": "RESEARCHER",
+  "age": 37,
+  "address": "Szeged, Dugonics tér 13, 6720",
+  "phoneNumber": "06201357756",
+  "status": true
+}
+
+Update employee example 1:
+
+{
+  "firstName": "Roland",
+  "lastName": "Selymes",
+  "birthDate": "2001-10-01",
+  "gender": "MALE",
+  "position": "MEDICAL_STUDENT",
+  "age": 25,
+  "address": "Szeged, Hargitai utca 53",
+  "phoneNumber": "06203638976",
+  "status": true
+}
+
+

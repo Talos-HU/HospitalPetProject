@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
 @Data
@@ -12,13 +13,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "SUPPLY")
-public class Supply implements SupplyDTO {
+public class Supply implements SupplyRetrievingDTO {
 
     @Id
     @GeneratedValue
     @Column(name = "supply_id")
-    private UUID supplyId = UUID.randomUUID();
+    private UUID supplyId;
 
+    @Pattern(message = "Supply name must not contain any special characters! (Ex.: !,@,#]+", regexp = "[.\\dA-ZÉÁŰŐÚÖÜÓÍa-zéáűőúöüói\\-\\s+]+")
     @Column(name = "supply_name")
     private String name;
 
@@ -31,4 +33,9 @@ public class Supply implements SupplyDTO {
     private int priceWithoutCoverage;
     @Column(name = "supply_price_with_coverage")
     private int priceWithCoverage;
+
+    @PrePersist
+    public void autofill() {
+        this.setSupplyId(UUID.randomUUID());
+    }
 }

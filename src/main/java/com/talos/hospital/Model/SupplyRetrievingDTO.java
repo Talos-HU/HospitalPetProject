@@ -5,7 +5,7 @@ import javax.persistence.Enumerated;
 import java.util.UUID;
 
 
-public interface SupplyDTO {
+public interface SupplyRetrievingDTO {
 
     UUID getSupplyId();
     String getName();
