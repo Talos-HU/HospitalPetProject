@@ -27,7 +27,7 @@ public class SupplyController {
 
 
     @GetMapping()
-    public List<SupplyCreationDTO> ListAllSupplies() {
+    public List<SupplyRetrievingDTO> ListAllSupplies() {
         return supplyService.findAllSupplies();
     }
 
@@ -43,12 +43,12 @@ public class SupplyController {
 
 
     @GetMapping("/{id}")
-    public SupplyRetrievingDTO getSupplyById(@PathVariable("id") UUID id) {
+    public SupplyCreationDTO getSupplyById(@PathVariable("id") UUID id) {
         return supplyService.getSupplyById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SupplyCreationDTO> updateSupply(@Valid @RequestBody SupplyCreationDTO supply, BindingResult bindingResult, @PathVariable("id") UUID supplyUUID) {
+    public ResponseEntity<SupplyRetrievingDTO> updateSupply(@Valid @RequestBody SupplyCreationDTO supply, BindingResult bindingResult, @PathVariable("id") UUID supplyUUID) {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for editing current Supply.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));

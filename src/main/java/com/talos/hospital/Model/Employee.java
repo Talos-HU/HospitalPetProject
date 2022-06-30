@@ -16,9 +16,10 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
-@Entity
+@Entity(name = "EMPLOYEE")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Employee {
 
 
@@ -50,9 +51,6 @@ public class Employee {
     @Column(name = "employee_position")
     @Enumerated(EnumType.STRING)
     private Position position;
-
-    @Column(name = "employee_age")
-    private Integer age;
 
     @Column(name = "employee_address")
     private String address;

@@ -30,12 +30,12 @@ public class EmployeeController {
 
 
     @GetMapping()
-    public List<EmployeeCreationDTO> listAllEmployees() {
+    public List<EmployeeRetrievingDTO> listAllEmployees() {
         return employeeService.findAllEmployees();
     }
 
     @PostMapping()
-    public ResponseEntity<EmployeeCreationDTO> addEmployee(@Valid @RequestBody EmployeeCreationDTO employee, BindingResult bindingResult) {
+    public ResponseEntity<EmployeeRetrievingDTO> addEmployee(@Valid @RequestBody EmployeeCreationDTO employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for creating a new Employee.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
@@ -46,12 +46,12 @@ public class EmployeeController {
 
 
     @GetMapping("/{id}")
-    public EmployeeRetrievingDTO getEmployeeById(@PathVariable("id") UUID id) {
+    public EmployeeCreationDTO getEmployeeById(@PathVariable("id") UUID id) {
         return employeeService.getEmployeeById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeCreationDTO> updatePatient(@Valid @RequestBody EmployeeCreationDTO employee, BindingResult bindingResult, @PathVariable("id") UUID employeeUUID) throws NoSuchIdFound {
+    public ResponseEntity<EmployeeRetrievingDTO> updatePatient(@Valid @RequestBody EmployeeCreationDTO employee, BindingResult bindingResult, @PathVariable("id") UUID employeeUUID) throws NoSuchIdFound {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for editing current Employee.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));

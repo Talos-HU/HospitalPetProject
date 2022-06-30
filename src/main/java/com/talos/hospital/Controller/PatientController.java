@@ -33,7 +33,7 @@ public class PatientController {
     }
 
     @PostMapping()
-    public ResponseEntity<PatientCreationDTO> addPatient(@Valid @RequestBody PatientCreationDTO patientCreationDTO, BindingResult bindingResult) {
+    public ResponseEntity<PatientRetrievingDTO> addPatient(@Valid @RequestBody PatientCreationDTO patientCreationDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for creating a new Employee.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));
@@ -44,12 +44,12 @@ public class PatientController {
 
 
     @GetMapping("/{id}")
-    public PatientRetrievingDTO getPatientById(@PathVariable("id") UUID id) {
+    public PatientCreationDTO getPatientById(@PathVariable("id") UUID id) {
         return patientService.getPatientById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientCreationDTO> updatePatient(@Valid @RequestBody PatientCreationDTO patient, BindingResult bindingResult, @PathVariable("id") UUID patientUUID) {
+    public ResponseEntity<PatientRetrievingDTO> updatePatient(@Valid @RequestBody PatientCreationDTO patient, BindingResult bindingResult, @PathVariable("id") UUID patientUUID) {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for editing current Employee.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));

@@ -41,6 +41,8 @@ public class PatientCreationDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate admissionDate;
 
+    private EmployeeRetrievingDTO doctor;
+
 
     private String symptomsAtAdmission;
     private UUID doctorUUID;

@@ -1,7 +1,6 @@
 package com.talos.hospital.Model;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -16,10 +15,5 @@ public interface PatientRetrievingDTO {
     LocalDate getBirthDate();
 
     LocalDate getAdmissionDate();
-
-    EmployeeRetrievingDTO getDoctor();
-
-    List<SupplyRetrievingDTO> getListOfSupplies();
-
 
 }

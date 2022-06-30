@@ -4,41 +4,75 @@ import com.talos.hospital.CustomUtils.Exceptions.NoSuchIdFound;
 import com.talos.hospital.Model.*;
 import com.talos.hospital.Repository.EmployeeRepository;
 import com.talos.hospital.Repository.PatientRepository;
+import com.talos.hospital.Repository.SupplyRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
 
     private final PatientRepository patientRepository;
     private final EmployeeRepository employeeRepository;
+    private final SupplyRepository supplyRepository;
 
-    private final EmployeeService employeeService;
-
-    private final SupplyService supplyService;
-
-    public PatientService(PatientRepository patientRepository, EmployeeRepository employeeRepository, EmployeeService employeeService, SupplyService supplyService) {
+    public PatientService(PatientRepository patientRepository, EmployeeRepository employeeRepository, SupplyRepository supplyRepository) {
         this.patientRepository = patientRepository;
         this.employeeRepository = employeeRepository;
-        this.employeeService = employeeService;
-        this.supplyService = supplyService;
+        this.supplyRepository = supplyRepository;
     }
 
 
     public List<PatientRetrievingDTO> listAllPatients() {
-        return patientRepository.findAll().stream()
-                .map(this::convertPatientToRetrievingDTO)
-                .collect(Collectors.toList());
+        return patientRepository.getAllBy();
     }
 
-    public PatientCreationDTO addPatient(PatientCreationDTO patient) {
-        Patient newPatient = new Patient();
-        newPatient.setPatientId(patient.getPatientId());
+    public PatientRetrievingDTO addPatient(PatientCreationDTO patient) {
+        Patient newPatient = Patient
+                .builder()
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
+                .birthDate(patient.getBirthDate())
+                .admissionDate(patient.getAdmissionDate())
+                .symptomsAtAdmission(patient.getSymptomsAtAdmission())
+                .doctor(employeeRepository
+                        .findById(patient.getPatientId())
+                        .orElseThrow(
+                        () -> new NoSuchIdFound(Employee.class.getSimpleName(), patient.getDoctorUUID())))
+                .listOfSupplies(patient.getListOfSupplies())
+                .build();
+
+        patientRepository.save(newPatient);
+        return patientRepository.getPatientByPatientId(patient.getPatientId());
+    }
+
+    public PatientCreationDTO getPatientById(UUID id) {
+        Patient patient = patientRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NoSuchIdFound(Patient.class.getSimpleName(), id));
+
+        return PatientCreationDTO
+                .builder()
+                .patientId(patient.getPatientId())
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
+                .birthDate(patient.getBirthDate())
+                .doctor(employeeRepository.findEmployeeByEmployeeId(patient.getDoctor().getEmployeeId()))
+                .admissionDate(patient.getAdmissionDate())
+                .symptomsAtAdmission(patient.getSymptomsAtAdmission())
+                .doctorUUID(patient.getDoctor().getEmployeeId())
+                .listOfSupplies(patient.getListOfSupplies())
+                .build();
+    }
+
+    public PatientRetrievingDTO updatePatient(PatientCreationDTO patient, UUID patientUUID) throws NoSuchIdFound {
+        Patient newPatient = patientRepository
+                .findById(patientUUID)
+                .orElseThrow(
+                        () -> new NoSuchIdFound(Patient.class.getSimpleName(), patientUUID));
+
         newPatient.setFirstName(patient.getFirstName());
         newPatient.setLastName(patient.getLastName());
         newPatient.setBirthDate(patient.getBirthDate());
@@ -46,94 +80,28 @@ public class PatientService {
         newPatient.setSymptomsAtAdmission(patient.getSymptomsAtAdmission());
         newPatient.setDoctor(employeeRepository.findById(patient.getDoctorUUID()).orElseThrow());
         newPatient.setListOfSupplies(patient.getListOfSupplies());
+
         patientRepository.save(newPatient);
-        return convertPatientToCreationDTO(newPatient);
-
+        return patientRepository.getPatientByPatientId(newPatient.getPatientId());
     }
 
-    public PatientRetrievingDTO getPatientById(UUID id) {
-        return patientRepository.getPatientByPatientId(id).orElseThrow(() -> new NoSuchIdFound(Patient.class.getSimpleName(), id));
-    }
+    public void deletePatient(UUID patientUUID) {
+        if (patientRepository.existsById(patientUUID)) {
+            patientRepository.deleteById(patientUUID);
+        } else {
+            throw new NoSuchIdFound(Patient.class.getSimpleName(), patientUUID);
+        }
 
-    public PatientCreationDTO updatePatient(PatientCreationDTO patient, UUID patientUUID) throws NoSuchIdFound {
-        Patient newPatient = patientRepository.findById(patientUUID).orElseThrow(() -> new NoSuchIdFound(Patient.class.getSimpleName(), patientUUID));
-        newPatient.setFirstName(patient.getFirstName());
-        newPatient.setLastName(patient.getLastName());
-        newPatient.setBirthDate(patient.getBirthDate());
-        newPatient.setAdmissionDate(patient.getAdmissionDate());
-        newPatient.setSymptomsAtAdmission(patient.getSymptomsAtAdmission());
-        newPatient.setDoctor(employeeRepository.findById(patient.getDoctorUUID()).orElseThrow());
-        newPatient.setListOfSupplies(patient.getListOfSupplies());
-        patientRepository.save(newPatient);
-        return convertPatientToCreationDTO(newPatient);
     }
-
-    public void deletePatient(UUID employeeId) {
-        Patient patient = patientRepository.findById(employeeId).orElseThrow(() -> new NoSuchIdFound(Patient.class.getSimpleName(), employeeId));
-        patientRepository.deleteById(patient.getPatientId());
-    }
-
 
     public void addSuppliesToPatient(UUID patientUUID, UUID supplyUUID) {
-        patientRepository.addSuppliesToPatient(patientUUID, supplyUUID);
-    }
-
-    public PatientCreationDTO convertPatientToCreationDTO(Patient patient) {
-        PatientCreationDTO newPatient = new PatientCreationDTO();
-        newPatient.setPatientId(patient.getPatientId());
-        newPatient.setFirstName(patient.getFirstName());
-        newPatient.setLastName(patient.getLastName());
-        newPatient.setBirthDate(patient.getBirthDate());
-        newPatient.setAdmissionDate(patient.getAdmissionDate());
-        newPatient.setSymptomsAtAdmission(patient.getSymptomsAtAdmission());
-        newPatient.setDoctorUUID(patient.getDoctor().getEmployeeId());
-        newPatient.setListOfSupplies(patient.getListOfSupplies());
-        return newPatient;
-    }
-
-    public PatientRetrievingDTO convertPatientToRetrievingDTO(Patient patient) {
-        return new PatientRetrievingDTO() {
-            @Override
-            public UUID getPatientId() {
-                return patient.getPatientId();
-            }
-
-            @Override
-            public String getFirstName() {
-                return patient.getFirstName();
-            }
-
-            @Override
-            public String getLastName() {
-                return patient.getLastName();
-            }
-
-            @Override
-            public LocalDate getBirthDate() {
-                return patient.getBirthDate();
-            }
-
-            @Override
-            public LocalDate getAdmissionDate() {
-                return patient.getAdmissionDate();
-            }
-
-            @Override
-            public EmployeeRetrievingDTO getDoctor() {
-                return employeeService.convertEmployeeToRetrievingDTO(patient.getDoctor());
-            }
-
-            @Override
-            public List<SupplyRetrievingDTO> getListOfSupplies() {
-                List<SupplyRetrievingDTO> listOfMedicine = new ArrayList<>();
-
-                for(Supply supply : patient.getListOfSupplies()) {
-                    listOfMedicine.add(supplyService.convertSupplyToRetrievingDTO(supply));
-                }
-
-                return listOfMedicine;
-            }
-        };
+        if (patientRepository.existsById(patientUUID) && supplyRepository.existsById(supplyUUID)) {
+            patientRepository.addSuppliesToPatient(patientUUID, supplyUUID);
+        } else if (!patientRepository.existsById(patientUUID)) {
+            throw new NoSuchIdFound(Patient.class.getSimpleName(), patientUUID);
+        } else if (!supplyRepository.existsById(supplyUUID)) {
+            throw new NoSuchIdFound(Supply.class.getSimpleName(), supplyUUID);
+        }
     }
 
 }
