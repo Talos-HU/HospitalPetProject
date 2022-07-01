@@ -43,8 +43,6 @@ public class EmployeeCreationDTO {
 
     private Position position;
 
-
-    private Integer age;
     private String address;
     private String phoneNumber;
     private Boolean status;

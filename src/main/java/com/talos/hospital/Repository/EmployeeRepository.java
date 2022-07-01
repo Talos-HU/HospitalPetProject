@@ -3,6 +3,7 @@ package com.talos.hospital.Repository;
 import com.talos.hospital.Model.Employee;
 import com.talos.hospital.Model.EmployeeRetrievingDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
     List<EmployeeRetrievingDTO> findAllBy();
 
     EmployeeRetrievingDTO findEmployeeByEmployeeId(UUID uuid);
+
 }

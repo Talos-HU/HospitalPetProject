@@ -54,7 +54,7 @@ public class Patient {
     @Column(name = "patient_symptoms_at_admission")
     private String symptomsAtAdmission;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
     private Employee doctor;
 
