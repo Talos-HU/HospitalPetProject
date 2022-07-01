@@ -37,7 +37,7 @@ public class PatientService {
                 .admissionDate(patient.getAdmissionDate())
                 .symptomsAtAdmission(patient.getSymptomsAtAdmission())
                 .doctor(employeeRepository
-                        .findById(patient.getPatientId())
+                        .findById(patient.getDoctorUUID())
                         .orElseThrow(
                         () -> new NoSuchIdFound(Employee.class.getSimpleName(), patient.getDoctorUUID())))
                 .listOfSupplies(patient.getListOfSupplies())
