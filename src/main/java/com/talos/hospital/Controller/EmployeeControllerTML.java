@@ -1,6 +1,6 @@
 package com.talos.hospital.Controller;
 
-import com.talos.hospital.Model.Employee;
+import com.talos.hospital.Model.Entity.Employee;
 import com.talos.hospital.Service.EmployeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

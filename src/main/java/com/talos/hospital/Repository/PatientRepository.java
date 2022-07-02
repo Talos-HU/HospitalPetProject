@@ -1,8 +1,7 @@
 package com.talos.hospital.Repository;
 
-import com.talos.hospital.Model.Patient;
-import com.talos.hospital.Model.PatientCreationDTO;
-import com.talos.hospital.Model.PatientRetrievingDTO;
+import com.talos.hospital.Model.Entity.Patient;
+import com.talos.hospital.Model.DTO.Output.PatientRetrievingDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository

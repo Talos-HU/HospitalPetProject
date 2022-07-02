@@ -1,9 +1,9 @@
 package com.talos.hospital.Controller;
 
 
-import com.talos.hospital.Model.Patient;
-import com.talos.hospital.Model.PatientCreationDTO;
-import com.talos.hospital.Model.PatientRetrievingDTO;
+import com.talos.hospital.Model.Entity.Patient;
+import com.talos.hospital.Model.DTO.Input.PatientCreationDTO;
+import com.talos.hospital.Model.DTO.Output.PatientRetrievingDTO;
 import com.talos.hospital.Service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

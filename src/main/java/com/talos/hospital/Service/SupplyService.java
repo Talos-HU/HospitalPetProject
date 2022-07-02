@@ -1,9 +1,9 @@
 package com.talos.hospital.Service;
 
 import com.talos.hospital.CustomUtils.Exceptions.NoSuchIdFound;
-import com.talos.hospital.Model.Supply;
-import com.talos.hospital.Model.SupplyCreationDTO;
-import com.talos.hospital.Model.SupplyRetrievingDTO;
+import com.talos.hospital.Model.Entity.Supply;
+import com.talos.hospital.Model.DTO.Input.SupplyCreationDTO;
+import com.talos.hospital.Model.DTO.Output.SupplyRetrievingDTO;
 import com.talos.hospital.Repository.SupplyRepository;
 import org.springframework.stereotype.Service;
 

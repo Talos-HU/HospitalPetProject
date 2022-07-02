@@ -1,4 +1,4 @@
-package com.talos.hospital.Model;
+package com.talos.hospital.Model.Enum;
 
 public enum Pretence {
     NORMATIV("Normative"),

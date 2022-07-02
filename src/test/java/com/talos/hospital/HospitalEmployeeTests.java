@@ -1,6 +1,7 @@
 package com.talos.hospital;
 
-import com.talos.hospital.Model.Employee;
+import com.talos.hospital.Model.Entity.Employee;
+import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

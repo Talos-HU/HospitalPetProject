@@ -1,7 +1,7 @@
 package com.talos.hospital.Repository;
 
-import com.talos.hospital.Model.Supply;
-import com.talos.hospital.Model.SupplyRetrievingDTO;
+import com.talos.hospital.Model.Entity.Supply;
+import com.talos.hospital.Model.DTO.Output.SupplyRetrievingDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

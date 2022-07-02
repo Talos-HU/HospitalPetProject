@@ -1,4 +1,7 @@
-package com.talos.hospital.Model;
+package com.talos.hospital.Model.DTO.Output;
+
+import com.talos.hospital.Model.Enum.Gender;
+import com.talos.hospital.Model.Enum.Position;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

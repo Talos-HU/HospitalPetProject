@@ -1,8 +1,8 @@
 package data;
 
-import com.talos.hospital.Model.Employee;
-import com.talos.hospital.Model.Gender;
-import com.talos.hospital.Model.Position;
+import com.talos.hospital.Model.Entity.Employee;
+import com.talos.hospital.Model.Enum.Gender;
+import com.talos.hospital.Model.Enum.Position;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -36,7 +36,7 @@ public interface TestEmployees {
             LocalDate.of(1922, Month.APRIL,10),
             Gender.MALE,
             Position.FELLOW,
-            "Budapest, Rákóczi tér 13, 6720",
+            "Budapest, Rákóczi tér 25, 1047",
             "06203333333",
             true);
 }

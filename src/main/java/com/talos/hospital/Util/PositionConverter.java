@@ -1,6 +1,6 @@
 package com.talos.hospital.Util;
 
-import com.talos.hospital.Model.Position;
+import com.talos.hospital.Model.Enum.Position;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

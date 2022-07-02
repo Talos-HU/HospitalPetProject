@@ -1,8 +1,8 @@
 package com.talos.hospital.Controller;
 
-import com.talos.hospital.Model.Employee;
-import com.talos.hospital.Model.EmployeeCreationDTO;
-import com.talos.hospital.Model.EmployeeRetrievingDTO;
+import com.talos.hospital.Model.Entity.Employee;
+import com.talos.hospital.Model.DTO.Input.EmployeeCreationDTO;
+import com.talos.hospital.Model.DTO.Output.EmployeeRetrievingDTO;
 import com.talos.hospital.Service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

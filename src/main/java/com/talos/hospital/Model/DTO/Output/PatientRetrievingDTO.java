@@ -1,4 +1,4 @@
-package com.talos.hospital.Model;
+package com.talos.hospital.Model.DTO.Output;
 
 import java.time.LocalDate;
 import java.util.UUID;

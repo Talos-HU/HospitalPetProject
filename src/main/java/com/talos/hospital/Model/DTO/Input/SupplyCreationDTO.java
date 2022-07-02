@@ -1,6 +1,7 @@
-package com.talos.hospital.Model;
+package com.talos.hospital.Model.DTO.Input;
 
 
+import com.talos.hospital.Model.Enum.Pretence;
 import lombok.*;
 
 import javax.persistence.EnumType;

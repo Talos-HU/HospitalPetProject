@@ -1,5 +1,7 @@
-package com.talos.hospital.Model;
+package com.talos.hospital.Model.Entity;
 
+import com.talos.hospital.Model.Enum.Pretence;
+import com.talos.hospital.Model.DTO.Output.SupplyRetrievingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

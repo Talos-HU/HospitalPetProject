@@ -1,6 +1,6 @@
 package com.talos.hospital.Util;
 
-import com.talos.hospital.Model.Gender;
+import com.talos.hospital.Model.Enum.Gender;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

@@ -1,8 +1,8 @@
 package com.talos.hospital.Controller;
 
-import com.talos.hospital.Model.Supply;
-import com.talos.hospital.Model.SupplyCreationDTO;
-import com.talos.hospital.Model.SupplyRetrievingDTO;
+import com.talos.hospital.Model.Entity.Supply;
+import com.talos.hospital.Model.DTO.Input.SupplyCreationDTO;
+import com.talos.hospital.Model.DTO.Output.SupplyRetrievingDTO;
 import com.talos.hospital.Service.SupplyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

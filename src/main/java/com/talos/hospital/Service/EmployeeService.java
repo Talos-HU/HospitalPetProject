@@ -1,7 +1,9 @@
 package com.talos.hospital.Service;
 
 import com.talos.hospital.CustomUtils.Exceptions.NoSuchIdFound;
-import com.talos.hospital.Model.*;
+import com.talos.hospital.Model.DTO.Input.EmployeeCreationDTO;
+import com.talos.hospital.Model.DTO.Output.EmployeeRetrievingDTO;
+import com.talos.hospital.Model.Entity.Employee;
 import com.talos.hospital.Repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 

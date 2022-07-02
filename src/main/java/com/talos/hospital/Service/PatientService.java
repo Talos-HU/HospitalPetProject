@@ -1,7 +1,11 @@
 package com.talos.hospital.Service;
 
 import com.talos.hospital.CustomUtils.Exceptions.NoSuchIdFound;
-import com.talos.hospital.Model.*;
+import com.talos.hospital.Model.DTO.Input.PatientCreationDTO;
+import com.talos.hospital.Model.DTO.Output.PatientRetrievingDTO;
+import com.talos.hospital.Model.Entity.Employee;
+import com.talos.hospital.Model.Entity.Patient;
+import com.talos.hospital.Model.Entity.Supply;
 import com.talos.hospital.Repository.EmployeeRepository;
 import com.talos.hospital.Repository.PatientRepository;
 import com.talos.hospital.Repository.SupplyRepository;
