@@ -1,7 +1,6 @@
 package com.talos.hospital;
 
 import com.talos.hospital.Model.Entity.Supply;
-import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class HospitalSupplyTests {
+public class SupplyTest {
 
     @Autowired
     private TestRestTemplate restTemplate;

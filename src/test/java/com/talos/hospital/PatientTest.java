@@ -18,8 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 import java.util.UUID;
 
-import static data.TestEmployees.*;
-import static data.TestEmployees.INVALIDTHOMAS;
 import static data.TestPatients.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-public class HospitalPatientTests {
+public class PatientTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
