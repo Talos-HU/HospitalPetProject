@@ -1,8 +1,8 @@
 package com.talos.hospital.Controller;
 
-import com.talos.hospital.Model.Entity.Employee;
 import com.talos.hospital.Model.DTO.Input.EmployeeCreationDTO;
 import com.talos.hospital.Model.DTO.Output.EmployeeRetrievingDTO;
+import com.talos.hospital.Model.Entity.Employee;
 import com.talos.hospital.Service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -100,7 +100,7 @@ public class EmployeeController {
                             content = @Content),
             })
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeRetrievingDTO> updatePatient(@Valid @RequestBody EmployeeCreationDTO employeeCreationDTO, BindingResult bindingResult, @PathVariable("id") UUID employeeUUID) {
+    public ResponseEntity<EmployeeRetrievingDTO> updateEmployee(@Valid @RequestBody EmployeeCreationDTO employeeCreationDTO, BindingResult bindingResult, @PathVariable("id") UUID employeeUUID) {
         if (bindingResult.hasErrors()) {
             logger.error("Invalid arguments for editing current Employee.");
             bindingResult.getAllErrors().forEach(e -> logger.error(e.getDefaultMessage()));

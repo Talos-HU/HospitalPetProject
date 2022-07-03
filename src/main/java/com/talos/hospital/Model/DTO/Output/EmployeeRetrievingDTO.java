@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface EmployeeRetrievingDTO extends Serializable {
 
     UUID getEmployeeId();
+
     String getFirstName();
 
     String getLastName();

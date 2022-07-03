@@ -89,7 +89,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.5.11</version>
                 <configuration>
-                    <url>jdbc:postgresql://hospital_db:5432/hospital</url>
+                    <url>jdbc:postgresql://localhost:5432/hospital</url>
                     <user>hospitaladministrator</user>
                     <password>drhouse</password>
                 </configuration>

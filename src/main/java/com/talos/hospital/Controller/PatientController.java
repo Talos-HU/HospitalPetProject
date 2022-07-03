@@ -1,9 +1,9 @@
 package com.talos.hospital.Controller;
 
 
-import com.talos.hospital.Model.Entity.Patient;
 import com.talos.hospital.Model.DTO.Input.PatientCreationDTO;
 import com.talos.hospital.Model.DTO.Output.PatientRetrievingDTO;
+import com.talos.hospital.Model.Entity.Patient;
 import com.talos.hospital.Service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("patient")
-@Tag(name="Patient")
+@Tag(name = "Patient")
 public class PatientController {
 
     private final PatientService patientService;
@@ -36,11 +36,11 @@ public class PatientController {
 
     @Operation(summary = "Returns a list of Patients",
             responses = {
-            @ApiResponse(description = "Get Patients",
-                    responseCode = "200",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Patient.class)))
-    })
+                    @ApiResponse(description = "Get Patients",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Patient.class)))
+            })
     @GetMapping()
     public List<PatientRetrievingDTO> listAllPatients() {
         return patientService.listAllPatients();

@@ -86,7 +86,7 @@ public class SupplyTest {
     void deleteMethodShouldNotChangeAnythingWithIncorrectUUID() {
         Integer sizeOfListBeforeDeletion = List.of(restTemplate.getForObject(entityUrl, Supply[].class)).size();
         String testUUID = UUID.randomUUID().toString();
-        restTemplate.delete(entityUrl + "/employee/" + testUUID, Supply.class);
+        restTemplate.delete(entityUrl + "/supply/" + testUUID, Supply.class);
         Integer sizeOfListAfterDeletion = List.of(restTemplate.getForObject(entityUrl, Supply[].class)).size();
         assertEquals(sizeOfListBeforeDeletion, sizeOfListAfterDeletion);
     }

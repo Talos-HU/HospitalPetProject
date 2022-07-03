@@ -32,5 +32,4 @@ public class SupplyCreationDTO {
     private int priceWithCoverage;
 
 
-
 }

@@ -1,8 +1,8 @@
 package com.talos.hospital.Controller;
 
-import com.talos.hospital.Model.Entity.Supply;
 import com.talos.hospital.Model.DTO.Input.SupplyCreationDTO;
 import com.talos.hospital.Model.DTO.Output.SupplyRetrievingDTO;
+import com.talos.hospital.Model.Entity.Supply;
 import com.talos.hospital.Service.SupplyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,15 +47,15 @@ public class SupplyController {
 
     @Operation(summary = "If the data is valid, adds a Supply to the database.",
             responses = {
-            @ApiResponse(description = "Add Supply",
-                    responseCode = "200",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Supply.class))),
+                    @ApiResponse(description = "Add Supply",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Supply.class))),
 
-            @ApiResponse(description = "Fail to add Supply",
-                    responseCode = "400",
-                    content = @Content)
-    })
+                    @ApiResponse(description = "Fail to add Supply",
+                            responseCode = "400",
+                            content = @Content)
+            })
     @PostMapping()
     public ResponseEntity<SupplyRetrievingDTO> addSupply(@Valid @RequestBody SupplyCreationDTO supplyCreationDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

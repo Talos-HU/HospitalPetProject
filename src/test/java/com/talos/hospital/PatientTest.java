@@ -1,6 +1,5 @@
 package com.talos.hospital;
 
-import com.talos.hospital.Model.Entity.Employee;
 import com.talos.hospital.Model.Entity.Patient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,22 +54,22 @@ public class PatientTest {
     @Test
     void getMethodShouldReturnNotFoundAfterTryingToGetPatientWithIncorrectUUID() {
         String testUUID = UUID.randomUUID().toString();
-        ResponseEntity<Patient> testEmployee = restTemplate.getForEntity(entityUrl + testUUID, Patient.class);
-        assertEquals(HttpStatus.NOT_FOUND, testEmployee.getStatusCode());
+        ResponseEntity<Patient> testPatient = restTemplate.getForEntity(entityUrl + testUUID, Patient.class);
+        assertEquals(HttpStatus.NOT_FOUND, testPatient.getStatusCode());
     }
 
     @Test
     void deleteMethodShouldDeletePatientWithGivenUUID() {
-        UUID uuidOfPostedEmployee = restTemplate.postForObject(entityUrl, Norbert, Patient.class).getPatientId();
-        restTemplate.delete(entityUrl + uuidOfPostedEmployee, Employee.class);
-        assertNull(restTemplate.getForObject(entityUrl + uuidOfPostedEmployee, Employee.class).getEmployeeId());
+        UUID uuidOfPostedPatient = restTemplate.postForObject(entityUrl, Norbert, Patient.class).getPatientId();
+        restTemplate.delete(entityUrl + uuidOfPostedPatient, Patient.class);
+        assertNull(restTemplate.getForObject(entityUrl + uuidOfPostedPatient, Patient.class).getPatientId());
     }
 
     @Test
     void deleteMethodShouldNotChangeAnythingWithIncorrectUUID() {
         Integer sizeOfListBeforeDeletion = List.of(restTemplate.getForObject(entityUrl, Patient[].class)).size();
         String testUUID = UUID.randomUUID().toString();
-        restTemplate.delete(entityUrl + "/patient/" + testUUID, Employee.class);
+        restTemplate.delete(entityUrl + "/patient/" + testUUID, Patient.class);
         Integer sizeOfListAfterDeletion = List.of(restTemplate.getForObject(entityUrl, Patient[].class)).size();
         assertEquals(sizeOfListBeforeDeletion, sizeOfListAfterDeletion);
     }
